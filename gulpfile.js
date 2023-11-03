@@ -257,17 +257,17 @@ function createAvif() {
 		.pipe(dest(paths.img.src));
 }
 
-function sprite() {
-	return src(paths.img.resourceSvg + "/*.svg")
-		.pipe(svgSprite({
-			mode: {
-				stack: {
-					sprite: "../sprite.svg"
-				}
-			},
-		}))
-		.pipe(dest(paths.img.src));
-}
+// function sprite() {
+// 	return src(paths.img.resourceSvg + "/*.svg")
+// 		.pipe(svgSprite({
+// 			mode: {
+// 				stack: {
+// 					sprite: "../sprite.svg"
+// 				}
+// 			},
+// 		}))
+// 		.pipe(dest(paths.img.src));
+// }
 
 // fonts
 function fonts() {
@@ -286,6 +286,6 @@ exports.createAvif = createAvif;
 // optiImg
 exports.optiImg = optiImg;
 // sprite
-exports.sprite = sprite;
+// exports.sprite = sprite;
 // fonts
 exports.fonts = fonts;
