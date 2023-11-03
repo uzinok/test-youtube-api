@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
 	<meta charset="UTF-8">
@@ -16,11 +16,11 @@
 	<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 	<div id="player"></div>
 	<button class="button">выбрать другое видео</button>
-	<button class="button1">убрать звук</button>
-	<button class="button2">добавить звук</button>
-	<button class="button3">пауза</button>
-	<button class="button4">воспроизвести</button>
-	<button class="button5">добавить в очередь</button>
+	<button class="button-mute">убрать звук</button>
+	<button class="button-unmute">добавить звук</button>
+	<button class="button-play">воспроизвести</button>
+	<button class="button-pause">пауза</button>
+	<button class="button-stop">стоп</button>
 
 	<script>
 		// 2. This code loads the IFrame Player API code asynchronously.
@@ -41,7 +41,7 @@
 				videoId: 'M7lc1UVf-VE',
 				playerVars: {
 					'autoplay': 1,
-					'controls': 0
+					'controls': 1
 				},
 				events: {
 					'onReady': onPlayerReady,
@@ -63,6 +63,7 @@
 		function onPlayerStateChange(event) {
 			if (event.data == YT.PlayerState.PLAYING && !done) {
 				setTimeout(stopVideo, 6000);
+				getDuration();
 				done = true;
 			}
 		}
@@ -80,19 +81,12 @@
 
 		function newVideo() {
 			player.loadVideoById({
-				videoId: "oLuwDnTRcqU",
-				playerVars: {
-					'autoplay': 1,
-					'controls': 0,
-					'mute': 1
-				},
-				startSeconds: 90,
-				suggestedQuality: 'large'
+				'videoId': 'oLuwDnTRcqU'
 			});
-
 		}
-		const button1 = document.querySelector('.button1');
-		button1.addEventListener('click', function() {
+
+		const buttonMute = document.querySelector('.button-mute');
+		buttonMute.addEventListener('click', function() {
 			mute();
 		})
 
@@ -100,8 +94,8 @@
 			player.mute();
 		}
 
-		const button2 = document.querySelector('.button2');
-		button2.addEventListener('click', function() {
+		const buttonUnmute = document.querySelector('.button-unmute');
+		buttonUnmute.addEventListener('click', function() {
 			unMute();
 		})
 
@@ -109,8 +103,8 @@
 			player.unMute();
 		}
 
-		const button3 = document.querySelector('.button3');
-		button3.addEventListener('click', function() {
+		const buttonPause = document.querySelector('.button-pause');
+		buttonPause.addEventListener('click', function() {
 			pause();
 		})
 
@@ -119,8 +113,8 @@
 		}
 
 
-		const button4 = document.querySelector('.button4');
-		button4.addEventListener('click', function() {
+		const buttonPlay = document.querySelector('.button-play');
+		buttonPlay.addEventListener('click', function() {
 			play();
 		})
 
@@ -128,25 +122,19 @@
 			player.playVideo();
 		}
 
-		const list = ['Gkq-0TVNf04', 'oLuwDnTRcqU', 'C5N9a4RwpPI'];
 
-		const button5 = document.querySelector('.button5');
-		button5.addEventListener('click', function() {
-			addVideo();
+		const buttonStop = document.querySelector('.button-stop');
+		buttonStop.addEventListener('click', function() {
+			stopVideo();
 		})
 
-		function addVideo() {
-			player.cuePlaylist({
-				listType: 'playlist',
-				list: 'oLuwDnTRcqU',
-				index: 1,
-				suggestedQuality: String
-			})
+
+		const list = ['Gkq-0TVNf04', 'oLuwDnTRcqU', 'C5N9a4RwpPI'];
+
+		function getDuration() {
+			console.log(player.getDuration());
 		}
 	</script>
-
-	.github/workflows/static.yml
-
 
 </body>
 
