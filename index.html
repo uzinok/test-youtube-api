@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document</title><link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="stylesheet" href="styles/main.min.css"></head><body><!-- 1. The <iframe> (and video player) will replace this <div> tag. --><div id="player"></div><button class="button">выбрать другое видео</button> <button class="button-mute">убрать звук</button> <button class="button-unmute">добавить звук</button> <button class="button-play">воспроизвести</button> <button class="button-pause">пауза</button> <button class="button-stop">стоп</button> <button class="button-turn">В очередь другое видео</button><script>// 2. This code loads the IFrame Player API code asynchronously.
+		var tag = document.createElement('script');
+
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		// 3. This function creates an <iframe> (and YouTube player)
+		//    after the API code downloads.
+		var player;
+
+		function onYouTubeIframeAPIReady() {
+			player = new YT.Player('player', {
+				height: '360',
+				width: '640',
+				videoId: 'Zqq3agc-J9o',
+				playerVars: {
+					'autoplay': 1,
+					'controls': 1
+				},
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange
+				}
+			});
+		}
+
+		// 4. The API will call this function when the video player is ready.
+		function onPlayerReady(event) {
+			event.target.playVideo();
+		}
+
+		// 5. The API calls this function when the player's state changes.
+		//    The function indicates that when playing a video (state=1),
+		//    the player should play for six seconds and then stop.
+		var done = false;
+
+		function onPlayerStateChange(event) {
+			if (event.data == 0) {
+				// newVideo()
+			}
+
+			if (event.data == YT.PlayerState.PLAYING && !done) {
+				// setTimeout(stopVideo, 6000);
+				done = true;
+			}
+
+
+		}
+
+		function stopVideo() {
+			player.stopVideo();
+		}</script><script>const button = document.querySelector('.button');
+
+		button.addEventListener('click', function() {
+			newVideo();
+		})
+
+		function newVideo() {
+			player.loadVideoById({
+				'videoId': 'Gkq-0TVNf04'
+			});
+		}
+
+		const buttonMute = document.querySelector('.button-mute');
+		buttonMute.addEventListener('click', function() {
+			mute();
+		})
+
+		function mute() {
+			player.mute();
+		}
+
+		const buttonUnmute = document.querySelector('.button-unmute');
+		buttonUnmute.addEventListener('click', function() {
+			unMute();
+		})
+
+		function unMute() {
+			player.unMute();
+		}
+
+		const buttonPause = document.querySelector('.button-pause');
+		buttonPause.addEventListener('click', function() {
+			pause();
+		})
+
+		function pause() {
+			player.pauseVideo();
+		}
+
+
+		const buttonPlay = document.querySelector('.button-play');
+		buttonPlay.addEventListener('click', function() {
+			play();
+		})
+
+		function play() {
+			player.playVideo();
+		}
+
+
+		const buttonStop = document.querySelector('.button-stop');
+		buttonStop.addEventListener('click', function() {
+			stopVideo();
+		})
+
+
+		const list = ['Gkq-0TVNf04', 'oLuwDnTRcqU', 'C5N9a4RwpPI'];
+
+		function getDuration() {
+			console.log(player.getDuration());
+		}
+
+		const buttonTurn = document.querySelector('.button-turn');
+		buttonTurn.addEventListener('click', function() {
+			turn();
+		})
+
+		function turn() {
+			player.cuePlaylist({
+				listType: 'playlist',
+				list: list
+			})
+		}</script></body></html>
