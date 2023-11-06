@@ -21,6 +21,7 @@
 	<button class="button-play">воспроизвести</button>
 	<button class="button-pause">пауза</button>
 	<button class="button-stop">стоп</button>
+	<button class="button-turn">В очередь другое видео</button>
 
 	<script>
 		// 2. This code loads the IFrame Player API code asynchronously.
@@ -38,7 +39,7 @@
 			player = new YT.Player('player', {
 				height: '360',
 				width: '640',
-				videoId: 'M7lc1UVf-VE',
+				videoId: 'Zqq3agc-J9o',
 				playerVars: {
 					'autoplay': 1,
 					'controls': 1
@@ -61,11 +62,16 @@
 		var done = false;
 
 		function onPlayerStateChange(event) {
+			if (event.data == 0) {
+				// newVideo()
+			}
+
 			if (event.data == YT.PlayerState.PLAYING && !done) {
-				setTimeout(stopVideo, 6000);
-				getDuration();
+				// setTimeout(stopVideo, 6000);
 				done = true;
 			}
+
+
 		}
 
 		function stopVideo() {
@@ -81,7 +87,7 @@
 
 		function newVideo() {
 			player.loadVideoById({
-				'videoId': 'oLuwDnTRcqU'
+				'videoId': 'Gkq-0TVNf04'
 			});
 		}
 
@@ -133,6 +139,18 @@
 
 		function getDuration() {
 			console.log(player.getDuration());
+		}
+
+		const buttonTurn = document.querySelector('.button-turn');
+		buttonTurn.addEventListener('click', function() {
+			turn();
+		})
+
+		function turn() {
+			player.cuePlaylist({
+				listType: 'playlist',
+				list: list
+			})
 		}
 	</script>
 
